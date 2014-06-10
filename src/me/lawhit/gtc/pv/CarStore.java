@@ -35,6 +35,8 @@ public class CarStore implements Listener{
 		Carstore = manager.getNewConfig("carsconfig.yml");
 		this.carm = carma;
 		this.eco = eco;
+		@SuppressWarnings("unused")
+		int i = 0;
 	}
 	
 	
