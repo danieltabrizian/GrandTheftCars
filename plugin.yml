@@ -1,0 +1,9 @@
+name: GrandTheftCars
+main: me.lawhit.gtc.Main
+version: 0.1
+description: Drivecars
+author: lawhit
+commands:
+    createcar:
+        description: sucksdick
+depend: [Vault]
