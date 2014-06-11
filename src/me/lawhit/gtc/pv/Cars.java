@@ -6,6 +6,7 @@ import java.util.Map;
 import me.lawhit.gtc.Main;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
@@ -15,6 +16,7 @@ import org.bukkit.entity.TNTPrimed;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.vehicle.VehicleBlockCollisionEvent;
 import org.bukkit.event.vehicle.VehicleDestroyEvent;
 import org.bukkit.event.vehicle.VehicleEnterEvent;
@@ -77,10 +79,11 @@ public class Cars implements Listener{
 				Player p = (Player) e.getVehicle().getPassenger();
 					if(e.getBlock().getLocation().add(0, 1, 0).getBlock().getType() == Material.AIR){
 						
-							e.getVehicle().setVelocity(new Vector(0,car.getStart(p),0));
+							e.getVehicle().setVelocity(new Vector(0,0.5,0));
 						
 						
-						multiplier.put(p.getUniqueId().toString(), multiplier.get(p.getUniqueId().toString()) -0.4);
+						//multiplier.put(p.getUniqueId().toString(), multiplier.get(p.getUniqueId().toString()) -0.4);
+							
 					}else{
 						if(multiplier.get(p.getUniqueId().toString()) >= car.getBodyArmore(p)){
 							
@@ -148,13 +151,26 @@ public class Cars implements Listener{
 	@EventHandler
 	public void vehiclemove(VehicleMoveEvent e){
 		if(e.getVehicle() instanceof Minecart){
-			//Minecart mc = (Minecart) e.getVehicle();
+			Minecart mc = (Minecart) e.getVehicle();
 			if(e.getVehicle().getPassenger() instanceof Player ){
-				Player p = (Player) e.getVehicle().getPassenger() ;
-				double Velocitycircle = multiplier.get(p);
-						if(Velocitycircle> car.getStart(p)){
-							multiplier.put(p.getUniqueId().toString(),Velocitycircle - car.getBrake(p));
-						}
+				Player p = (Player) e.getVehicle().getPassenger();
+				if(!(m.forwards > 0)){
+					if( multiplier.get(p.getUniqueId().toString())> car.getStart(p)){
+						multiplier.put(p.getUniqueId().toString(), multiplier.get(p.getUniqueId().toString()) - car.getBrake(p));
+						double Velocitycircle = multiplier.get(p.getUniqueId().toString());
+						
+						mc.setDerailedVelocityMod(p.getLocation().getDirection().multiply(Velocitycircle));
+						p.setLevel(Math.round(Math.round(Math.floor(multiplier.get(p.getUniqueId().toString())))) );
+						mc.getLocation().setYaw(p.getLocation().getYaw());
+					}
+				}
+				
+				if(mc.getLocation().subtract(0,1, 0).getBlock().getType() == Material.AIR){
+					mc.setVelocity(mc.getVelocity().subtract(new Vector(0,0.1,0)));
+					p.setFallDistance(0);
+					mc.setFallDistance(0);
+				}
+
 			}
 		}
 	}

@@ -33,6 +33,7 @@ public class Main extends JavaPlugin{
 	 //protocol
 		public Boolean protocolLib = false;
 		public Object  protocolManager = null;
+		public float forwards = (float) 0.0;
 	public void onEnable(){
 		setupEconomy();
 		if(setupProtocol() ==false){
@@ -85,7 +86,7 @@ public class Main extends JavaPlugin{
 				    	if(event.getPacketType() == PacketType.Play.Client.STEER_VEHICLE){
 				            PacketContainer packet = event.getPacket();	
 				            float sideways = packet.getFloat().read(0);
-				            float forwards = packet.getFloat().read(1);  
+				           forwards= packet.getFloat().read(1);  
 				            
 				            new CarMotion(event.getPlayer(),forwards,sideways,car);
 				            
