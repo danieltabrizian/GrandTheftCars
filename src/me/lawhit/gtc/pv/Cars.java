@@ -25,53 +25,27 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitTask;
 import org.bukkit.util.Vector;
 
+
+
 public class Cars implements Listener{
-	Map<String, Double> multiplier = new HashMap<String,Double>();
-	Map<String, Vector> lastvec = new HashMap<String,Vector>();
+	public Map<String, Double> multiplier = new HashMap<String,Double>();
+	
 	Main m;
 
+	public Float forward;
+	
 	CarManager car;
 	public Cars(Main plugin,CarManager _car){
 		this.m = plugin;
 		this.car = _car;
-
+		
 		 @SuppressWarnings("unused")
 		BukkitTask drive;
 		 drive = Bukkit.getScheduler().runTaskTimer(m, new Runnable(){
 
 			@Override
 			public void run() {
-				for(Player p : Bukkit.getOnlinePlayers()){
-					if(p.getVehicle() instanceof Minecart){
-						Minecart mc = (Minecart) p.getVehicle();
-						
-							if(p.isBlocking()){
-								
-								Double X = p.getLocation().getDirection().multiply(3).getX();
-								Double Y = 0.0;
-								Double Z = p.getLocation().getDirection().multiply(3).getZ();
-								Vector finalvec = new Vector(X,Y,Z);
-								mc.setVelocity(finalvec);
-								Double Velocitycircle = multiplier.get(p.getUniqueId().toString());
-								mc.setDerailedVelocityMod(new Vector(Velocitycircle,Velocitycircle,Velocitycircle));
-								if(Velocitycircle < car.getMaxSpeed(p)){
-									multiplier.put(p.getUniqueId().toString(), multiplier.get(p.getUniqueId().toString()) +(car.getAcceleration(p)/5));
-								}
-
-								p.setLevel(Math.round(Math.round(Math.floor(multiplier.get(p.getUniqueId().toString())))) );
-								lastvec.put(p.getUniqueId().toString(), finalvec);
-							}else{
-								Double Velocitycircle = multiplier.get(p.getUniqueId().toString());
-								mc.setDerailedVelocityMod(new Vector(Velocitycircle,Velocitycircle,Velocitycircle));							
-								p.setLevel(Math.round(Math.round(Math.floor(multiplier.get(p.getUniqueId().toString())))) );
-							}
-						
-
-					}
-				}
-				
 			}
-			 
 		 }, 1l, 1l);
 		 
 	}
@@ -138,9 +112,8 @@ public class Cars implements Listener{
 			if(e.getVehicle() instanceof Minecart){
 				//Minecart mc = (Minecart) e.getVehicle();
 				multiplier.put(p.getUniqueId().toString(), car.getStart(p));
-				lastvec.put(p.getUniqueId().toString(), new Vector(0,0,0));
-				car.setLastItem(p, p.getInventory().getItem(8));
-				p.getInventory().setItem(8, new ItemStack(Material.WOOD_SWORD,1));
+				
+			
 			}
 		}
 	}
@@ -151,7 +124,7 @@ public class Cars implements Listener{
 			if(e.getExited() instanceof Player){
 				Player p = (Player) e.getExited();
 				if(car.HasPV(p)){
-					p.getInventory().setItem(8, car.getLastItem(p));
+					
 					
 				}
 			}
@@ -164,7 +137,7 @@ public class Cars implements Listener{
 			if(e.getVehicle().getPassenger() instanceof Player){
 				Player p = (Player) e.getVehicle().getPassenger();
 				if(car.HasPV(p)){
-					p.getInventory().setItem(8, car.getLastItem(p));
+				
 					
 				}
 			}
@@ -175,23 +148,22 @@ public class Cars implements Listener{
 	@EventHandler
 	public void vehiclemove(VehicleMoveEvent e){
 		if(e.getVehicle() instanceof Minecart){
-			if(e.getVehicle().getPassenger() instanceof Player){
-				Player p = (Player) e.getVehicle().getPassenger();
-				if(multiplier.containsKey(p.getUniqueId().toString()) == false){
-					multiplier.put(p.getUniqueId().toString(), car.getStart(p));
-					
-				}
-				
-				if(p.isBlocking() == false){
-					if(multiplier.get(p.getUniqueId().toString()) > car.getStart(p)){
-						multiplier.put(p.getUniqueId().toString(), multiplier.get(p.getUniqueId().toString()) - car.getBrake(p));
-					}
-				}
-				
-				
+			//Minecart mc = (Minecart) e.getVehicle();
+			if(e.getVehicle().getPassenger() instanceof Player ){
+				Player p = (Player) e.getVehicle().getPassenger() ;
+				double Velocitycircle = multiplier.get(p);
+						if(Velocitycircle> car.getStart(p)){
+							multiplier.put(p.getUniqueId().toString(),Velocitycircle - car.getBrake(p));
+						}
 			}
 		}
 	}
+	
+
+	
+	
+	
+	
 	
 	@SuppressWarnings("deprecation")
 	@EventHandler
@@ -199,7 +171,9 @@ public class Cars implements Listener{
 		if(e.getItem() != null){
 			if(e.getItem().getType() == Material.MINECART){
 				e.getPlayer().getWorld().spawnEntity(e.getPlayer().getTargetBlock(null, 3).getLocation().add(0, 1.5, 0), EntityType.MINECART);
+				
 				e.getPlayer().getInventory().setItemInHand(new ItemStack(e.getItem().getType(),e.getItem().getAmount()-1));
+				
 			}
 		}
 	}

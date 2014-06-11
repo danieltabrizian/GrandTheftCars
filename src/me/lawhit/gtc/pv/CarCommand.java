@@ -16,7 +16,7 @@ public class CarCommand implements CommandExecutor{
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String arg2,String[] args) {
 		if(cmd.getName().equalsIgnoreCase("createcar")){
-			carm.createcar((Player)sender, Double.parseDouble(args[0]), Double.parseDouble(args[1]), Integer.parseInt(args[2]), Double.parseDouble(args[3]), Double.parseDouble(args[4]), Integer.parseInt(args[5]),args[6]);
+			//carm.createcar((Player)sender, Double.parseDouble(args[0]), Double.parseDouble(args[1]), Integer.parseInt(args[2]), Double.parseDouble(args[3]), Double.parseDouble(args[4]), Integer.parseInt(args[5]),args[6]);
 			((Player)sender).openInventory(css.getCars());
 			
 		}

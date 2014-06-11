@@ -18,11 +18,7 @@ public class CarManager {
 		 cars = manager.getNewConfig("cars.yml");
 		 this.m = plugin;
 	}
-	 //TODO maxspeed
-	//TODO acceleration
-	//TODO bodyarmore
-	//TODO startvalue
-	//TODO brakes
+
 	
 	public boolean HasPV(Player p){
 		if(cars.contains(p.getUniqueId().toString())){

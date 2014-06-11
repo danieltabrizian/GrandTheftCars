@@ -6,4 +6,4 @@ author: lawhit
 commands:
     createcar:
         description: sucksdick
-depend: [Vault]
+depend: [Vault,ProtocolLib]

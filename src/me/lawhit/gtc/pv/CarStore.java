@@ -65,7 +65,7 @@ public class CarStore implements Listener{
 	
 	@EventHandler
 	public void click(InventoryClickEvent e){
-		if(e.getInventory().getName().equals(ChatColor.GRAY + "Legendary MotorSport")){
+		if(e.getInventory().getName().equals(ChatColor.GRAY + "Legendary MotorCraft")){
 			e.setCancelled(true);
 			if(e.getCurrentItem() != null){
 				ItemStack is = e.getCurrentItem();
