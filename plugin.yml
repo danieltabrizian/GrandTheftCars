@@ -6,4 +6,6 @@ author: lawhit
 commands:
     createcar:
         description: sucksdick
-depend: [Vault,ProtocolLib]
+    createstore:
+        description: sucksdick
+depend: [Vault,RemoteEntities,ProtocolLib]
