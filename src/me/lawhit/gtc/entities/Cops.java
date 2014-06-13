@@ -2,6 +2,7 @@ package me.lawhit.gtc.entities;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -15,13 +16,14 @@ public class Cops {
 
 	public Map<PigZombie,Integer> pz = new HashMap<PigZombie,Integer>();
 	public PigZombie zombie;
+	Random random = new Random();
 	BukkitTask remover;
-	@SuppressWarnings("deprecation")
 	public Cops(Player p, Integer stars){
 	
 	   
 	    for(int i = 0 ; i < stars;i++){
-	    	 zombie = (PigZombie) p.getWorld().spawnEntity(p.getTargetBlock(null, 5).getLocation(), EntityType.PIG_ZOMBIE);
+	    	
+	    	 zombie = (PigZombie) p.getWorld().spawnEntity(p.getLocation().add(random.nextInt(7) -14, 0, random.nextInt(7)-14), EntityType.PIG_ZOMBIE);
 	    	zombie.setAnger(3);
 	    	zombie.setAngry(true);
 	    	zombie.setTarget(p);
@@ -31,6 +33,7 @@ public class Cops {
 	    	zombie.getEquipment().setLeggings(new ItemStack(Material.DIAMOND_LEGGINGS,1));
 	    	zombie.getEquipment().setChestplate(new ItemStack(Material.DIAMOND_CHESTPLATE,1));
 	    	zombie.getEquipment().setItemInHand(new ItemStack(Material.DIAMOND_SWORD,1));
+	    	
 	    	pz.put(zombie, 20);
 	    }
 	    

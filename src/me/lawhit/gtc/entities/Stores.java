@@ -35,10 +35,30 @@ public class Stores {
 			vill.setCustomName(stores.getString(s + ".name"));
 			vill.setCustomNameVisible(true);
 			vill.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 100000, 10), false);
-			vill.setProfession(Profession.PRIEST);
+			vill.setProfession(Profession.LIBRARIAN);
 			villss.add(vill);
 		}
-		
+		Bukkit.getScheduler().runTaskTimer(m, new Runnable(){
+
+			@Override
+			public void run() {
+				for(Object cd2 : villss.toArray()){
+					Villager vills = (Villager) cd2;
+					vills.remove();
+				}
+				for(String s : stores.getKeys()){
+					
+					Villager vill = (Villager) Bukkit.getWorld(stores.getString(s+".world")).spawnEntity(new Location (Bukkit.getWorld(stores.getString(s+".world")),stores.getDouble(s+".x"),stores.getDouble(s+".y"),stores.getDouble(s+".z")), EntityType.VILLAGER);
+					vill.setCustomName(stores.getString(s + ".name"));
+					vill.setCustomNameVisible(true);
+					vill.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 100000, 10), false);
+					vill.setProfession(Profession.LIBRARIAN);
+					villss.add(vill);
+				}
+				
+			}
+			
+		}, 0, 30000);
 	}
 	
 	

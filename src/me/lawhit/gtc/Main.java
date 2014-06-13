@@ -43,8 +43,10 @@ public class Main extends JavaPlugin{
 		public float forwards = (float) 0.0;
 	public void onEnable(){
 		
-
-		setupEconomy();
+		if(setupEconomy() == false){
+			getLogger().info("failed to log Economy");
+		}
+		
 		if(setupProtocol() ==false){
 			getLogger().info("protofail");
 		}
@@ -67,7 +69,7 @@ public class Main extends JavaPlugin{
 		store = new Stores(this);
 		sc = new StoreCommand(this,economy);
 		this.getCommand("createstore").setExecutor(sc);
-		sl = new StoreListener(economy);
+		sl = new StoreListener(economy,this);
 		
 		Bukkit.getPluginManager().registerEvents(sl, this);
 	
