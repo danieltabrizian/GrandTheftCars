@@ -8,4 +8,6 @@ commands:
         description: sucksdick
     createstore:
         description: sucksdick
+    createphone:
+        description: sucksdick
 depend: [Vault,RemoteEntities,ProtocolLib]

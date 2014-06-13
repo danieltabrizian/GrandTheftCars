@@ -3,6 +3,9 @@ package me.lawhit.gtc;
 import me.lawhit.gtc.entities.StoreCommand;
 import me.lawhit.gtc.entities.StoreListener;
 import me.lawhit.gtc.entities.Stores;
+import me.lawhit.gtc.phone.Ifruit;
+import me.lawhit.gtc.phone.IfruitCommand;
+import me.lawhit.gtc.phone.Ifruitlistener;
 import me.lawhit.gtc.pv.CarCommand;
 import me.lawhit.gtc.pv.CarManager;
 import me.lawhit.gtc.pv.CarMotion;
@@ -33,6 +36,10 @@ public class Main extends JavaPlugin{
 	Stores store;
 	StoreCommand sc;
 	StoreListener sl;
+	//ifruit
+	Ifruit ifruit;
+	IfruitCommand ifruitcommand;
+	Ifruitlistener ifruitlistener;
 	//eco
 	 public static Economy economy = null;
 
@@ -72,7 +79,12 @@ public class Main extends JavaPlugin{
 		sl = new StoreListener(economy,this);
 		
 		Bukkit.getPluginManager().registerEvents(sl, this);
-	
+		//ifruit
+		ifruit = new Ifruit(this);
+		ifruitcommand  = new IfruitCommand(ifruit);
+		ifruitlistener = new Ifruitlistener(this,ifruit);
+		Bukkit.getPluginManager().registerEvents(ifruitlistener, this);
+		this.getCommand("createphone").setExecutor(ifruitcommand);
 	}
 	
 	public void onDisable(){
