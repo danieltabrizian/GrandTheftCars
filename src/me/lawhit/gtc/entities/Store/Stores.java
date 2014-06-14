@@ -34,6 +34,7 @@ public class Stores {
 			Villager vill = (Villager) Bukkit.getWorld(stores.getString(s+".world")).spawnEntity(new Location (Bukkit.getWorld(stores.getString(s+".world")),stores.getDouble(s+".x"),stores.getDouble(s+".y"),stores.getDouble(s+".z")), EntityType.VILLAGER);
 			vill.setCustomName(stores.getString(s + ".name"));
 			vill.setCustomNameVisible(true);
+			vill.setRemoveWhenFarAway(false);
 			vill.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 100000, 10), false);
 			vill.setProfession(Profession.LIBRARIAN);
 			villss.add(vill);
@@ -51,6 +52,7 @@ public class Stores {
 					Villager vill = (Villager) Bukkit.getWorld(stores.getString(s+".world")).spawnEntity(new Location (Bukkit.getWorld(stores.getString(s+".world")),stores.getDouble(s+".x"),stores.getDouble(s+".y"),stores.getDouble(s+".z")), EntityType.VILLAGER);
 					vill.setCustomName(stores.getString(s + ".name"));
 					vill.setCustomNameVisible(true);
+					vill.setRemoveWhenFarAway(false);
 					vill.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 100000, 10), false);
 					vill.setProfession(Profession.LIBRARIAN);
 					villss.add(vill);
@@ -58,7 +60,7 @@ public class Stores {
 				
 			}
 			
-		}, 0, 30000);
+		}, 0, 1200);
 	}
 	
 	

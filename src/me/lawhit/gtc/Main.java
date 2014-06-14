@@ -3,6 +3,7 @@ package me.lawhit.gtc;
 import me.lawhit.gtc.entities.Store.StoreCommand;
 import me.lawhit.gtc.entities.Store.StoreListener;
 import me.lawhit.gtc.entities.Store.Stores;
+import me.lawhit.gtc.entities.cops.CopsEvent;
 import me.lawhit.gtc.phone.Ifruit;
 import me.lawhit.gtc.phone.IfruitCommand;
 import me.lawhit.gtc.phone.Ifruitlistener;
@@ -42,7 +43,8 @@ public class Main extends JavaPlugin{
 	Ifruitlistener ifruitlistener;
 	//eco
 	 public static Economy economy = null;
-
+	 //cops
+	 CopsEvent cops;
 	 
 	 //protocol
 		public Boolean protocolLib = false;
@@ -64,9 +66,6 @@ public class Main extends JavaPlugin{
 		cs = new CarStore(this,carm,economy);
 		this.carc = new CarCommand(carm,cs);
 		car = new Cars(this, carm);
-		
-		
-		
 		Bukkit.getPluginManager().registerEvents(car, this);
 		this.getCommand("createcar").setExecutor(carc);
 		
@@ -76,7 +75,7 @@ public class Main extends JavaPlugin{
 		store = new Stores(this);
 		sc = new StoreCommand(this,economy);
 		this.getCommand("createstore").setExecutor(sc);
-		sl = new StoreListener(economy,this);
+		sl = new StoreListener(economy,this,store);
 		
 		Bukkit.getPluginManager().registerEvents(sl, this);
 		//ifruit
@@ -85,6 +84,9 @@ public class Main extends JavaPlugin{
 		ifruitlistener = new Ifruitlistener(this,ifruit);
 		Bukkit.getPluginManager().registerEvents(ifruitlistener, this);
 		this.getCommand("createphone").setExecutor(ifruitcommand);
+		//cops
+		cops = new CopsEvent();
+		Bukkit.getPluginManager().registerEvents(cops, this);
 	}
 	
 	public void onDisable(){

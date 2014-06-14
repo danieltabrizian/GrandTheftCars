@@ -21,12 +21,13 @@ public class StoreListener implements Listener{
 	public Map<Villager,Integer> cooldown = new HashMap<Villager,Integer>();
 	BukkitTask cooldowntask;
 	Main mian;
-
+	Stores store;
 	
 	Economy eco;
-	public StoreListener(Economy vault, Main m){
+	public StoreListener(Economy vault, Main m,Stores sto){
 		this.eco = vault;
 		this.mian = m;
+		this.store = sto;
 
 		cooldowntask = Bukkit.getScheduler().runTaskTimer(m, new Runnable(){
 
@@ -50,6 +51,7 @@ public class StoreListener implements Listener{
 	@EventHandler
 	public void onentdamage(EntityDamageEvent e){
 		if(e.getCause() == DamageCause.ENTITY_ATTACK){
+			
 			if(e.getEntity() instanceof Villager){
 				Villager vill = (Villager) e.getEntity();
 				if(vill.getKiller() instanceof Player){
@@ -72,4 +74,8 @@ public class StoreListener implements Listener{
 			}
 		}
 	}
+	
+
+	
+	
 }
