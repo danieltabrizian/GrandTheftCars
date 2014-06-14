@@ -1,8 +1,8 @@
 package me.lawhit.gtc;
 
-import me.lawhit.gtc.entities.StoreCommand;
-import me.lawhit.gtc.entities.StoreListener;
-import me.lawhit.gtc.entities.Stores;
+import me.lawhit.gtc.entities.Store.StoreCommand;
+import me.lawhit.gtc.entities.Store.StoreListener;
+import me.lawhit.gtc.entities.Store.Stores;
 import me.lawhit.gtc.phone.Ifruit;
 import me.lawhit.gtc.phone.IfruitCommand;
 import me.lawhit.gtc.phone.Ifruitlistener;

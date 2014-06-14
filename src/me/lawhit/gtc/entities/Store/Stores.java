@@ -1,4 +1,4 @@
-package me.lawhit.gtc.entities;
+package me.lawhit.gtc.entities.Store;
 
 import java.util.HashSet;
 import java.util.Set;

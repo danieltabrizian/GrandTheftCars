@@ -1,4 +1,4 @@
-package me.lawhit.gtc.entities;
+package me.lawhit.gtc.entities.Store;
 
 import me.lawhit.gtc.Main;
 import me.lawhit.gtc.MyConfig;

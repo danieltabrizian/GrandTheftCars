@@ -1,9 +1,10 @@
-package me.lawhit.gtc.entities;
+package me.lawhit.gtc.entities.Store;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import me.lawhit.gtc.Main;
+import me.lawhit.gtc.entities.cops.Cops;
 import net.milkbowl.vault.economy.Economy;
 
 import org.bukkit.Bukkit;
