@@ -27,6 +27,7 @@ public class StoreCommand implements CommandExecutor{
 		this.eco = eco2;
 		manager = new MyConfigManager(m);
 		stores = manager.getNewConfig("stores.yml");
+		stores.saveConfig();
 	}
 	
 	@Override

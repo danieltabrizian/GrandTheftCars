@@ -15,7 +15,7 @@ public class CarManager {
 	Main m;
 	public CarManager(Main plugin){
 		manager = new MyConfigManager(plugin);
-		 cars = manager.getNewConfig("cars.yml");
+		 cars = manager.getNewConfig("cars.db");
 		 this.m = plugin;
 	}
 

@@ -3,6 +3,7 @@ package me.lawhit.gtc;
 import me.lawhit.gtc.entities.Store.StoreCommand;
 import me.lawhit.gtc.entities.Store.StoreListener;
 import me.lawhit.gtc.entities.Store.Stores;
+import me.lawhit.gtc.entities.cops.CopGiver;
 import me.lawhit.gtc.entities.cops.CopsEvent;
 import me.lawhit.gtc.phone.Ifruit;
 import me.lawhit.gtc.phone.IfruitCommand;
@@ -26,6 +27,7 @@ import com.comphenix.protocol.events.ListenerPriority;
 import com.comphenix.protocol.events.PacketAdapter;
 import com.comphenix.protocol.events.PacketContainer;
 import com.comphenix.protocol.events.PacketEvent;
+import com.shampaggon.crackshot.CSUtility;
 
 public class Main extends JavaPlugin{
 	//cars
@@ -45,13 +47,21 @@ public class Main extends JavaPlugin{
 	 public static Economy economy = null;
 	 //cops
 	 CopsEvent cops;
+	 CopGiver copg;
+	 //crackshot
+	 CSUtility csmanager;
 	 
 	 //protocol
 		public Boolean protocolLib = false;
 		public Object  protocolManager = null;
 		public float forwards = (float) 0.0;
-	public void onEnable(){
+		//respawn
+		Respawn respawn;
+		//join
+		Teleports tps;
 		
+		public void onEnable(){
+		csmanager = new CSUtility();
 		if(setupEconomy() == false){
 			getLogger().info("failed to log Economy");
 		}
@@ -85,13 +95,21 @@ public class Main extends JavaPlugin{
 		Bukkit.getPluginManager().registerEvents(ifruitlistener, this);
 		this.getCommand("createphone").setExecutor(ifruitcommand);
 		//cops
-		cops = new CopsEvent();
+		cops = new CopsEvent(economy);
+		copg = new CopGiver(csmanager);
+		Bukkit.getPluginManager().registerEvents(copg, this);
 		Bukkit.getPluginManager().registerEvents(cops, this);
+		//respawn
+		respawn = new Respawn(this,csmanager);
+		Bukkit.getPluginManager().registerEvents(respawn, this);
+		//teleports
+		tps = new Teleports();
+		Bukkit.getPluginManager().registerEvents(tps, this);
 	}
 	
 	public void onDisable(){
 		carm.cars.saveConfig();
-		for(Villager vill : store.villss){
+		for(Villager vill : store.villss.keySet()){
 			vill.remove();
 		}
 	}
@@ -127,6 +145,8 @@ public class Main extends JavaPlugin{
 				    	}
 
 				    }
+				   
+				    
 				});
 			} catch (Exception e) {
 				return false;

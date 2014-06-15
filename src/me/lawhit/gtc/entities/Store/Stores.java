@@ -1,7 +1,7 @@
 package me.lawhit.gtc.entities.Store;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.HashMap;
+import java.util.Map;
 
 import me.lawhit.gtc.Main;
 import me.lawhit.gtc.MyConfig;
@@ -20,7 +20,7 @@ public class Stores {
 	Main plugin;
 	MyConfigManager manager;
 	MyConfig stores;
-	public Set<Villager> villss = new HashSet<Villager>();
+	public Map<Villager,String> villss = new HashMap<Villager,String>();
 	
 	
 	
@@ -37,15 +37,15 @@ public class Stores {
 			vill.setRemoveWhenFarAway(false);
 			vill.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 100000, 10), false);
 			vill.setProfession(Profession.LIBRARIAN);
-			villss.add(vill);
+			villss.put(vill, s);
 		}
 		Bukkit.getScheduler().runTaskTimer(m, new Runnable(){
 
 			@Override
 			public void run() {
-				for(Object cd2 : villss.toArray()){
-					Villager vills = (Villager) cd2;
-					vills.remove();
+				for(Villager cd2 : villss.keySet()){
+					
+					cd2.remove();
 				}
 				for(String s : stores.getKeys()){
 					
@@ -55,7 +55,7 @@ public class Stores {
 					vill.setRemoveWhenFarAway(false);
 					vill.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 100000, 10), false);
 					vill.setProfession(Profession.LIBRARIAN);
-					villss.add(vill);
+					villss.put(vill, s);
 				}
 				
 			}

@@ -10,4 +10,4 @@ commands:
         description: sucksdick
     createphone:
         description: sucksdick
-depend: [Vault,RemoteEntities,ProtocolLib]
+depend: [Vault,ProtocolLib,CrackShot,Aconomy]
