@@ -1,7 +1,6 @@
 package me.lawhit.gtc;
 
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
@@ -43,7 +42,8 @@ public class Respawn implements Listener{
 						if(csu.getWeaponTitle(is) != null){
 							
 							e.getPlayer().getInventory().setItem(stacker,csu.generateWeapon(csu.getWeaponTitle(is)));
-							e.getPlayer().sendMessage(ChatColor.YELLOW + "Reloaded: " +csu.getWeaponTitle(is) );
+							new Message(e.getPlayer() , "Reloaded: " +csu.getWeaponTitle(is) , ChatType.normal);
+							
 						}else{
 							e.getPlayer().getInventory().setItem(stacker,is);
 						}

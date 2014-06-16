@@ -105,6 +105,8 @@ public class Main extends JavaPlugin{
 		//teleports
 		tps = new Teleports();
 		Bukkit.getPluginManager().registerEvents(tps, this);
+		//nolagg
+		Bukkit.getPluginManager().registerEvents( new Nolagg(this), this);
 	}
 	
 	public void onDisable(){

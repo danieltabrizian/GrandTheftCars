@@ -46,10 +46,10 @@ public class CopGiver implements Listener{
 	@EventHandler
 	public void bhit(EntityDamageByEntityEvent e){
 		if(e.getDamager() instanceof LivingEntity){
-			LivingEntity le = (LivingEntity) e.getDamager();
-			Damageable dmg = le;
-			new Hologram(ChatColor.RED + ""+ e.getDamage() ).show(le.getTargetBlock(null, 2).getLocation().add(0, -0.5, 0),20);
+			LivingEntity le = (LivingEntity) e.getEntity();
+			Damageable dmg = le;	
 			if(e.getDamager() instanceof Player){
+				new Hologram(ChatColor.RED + ""+ e.getDamage() ).show(le.getTargetBlock(null, 2).getLocation().add(0, -0.5, 0),20);
 				if(dmg.getHealth() - e.getDamage() < 0.5){
 					new Cops((Player) e.getDamager(), 1);
 				}

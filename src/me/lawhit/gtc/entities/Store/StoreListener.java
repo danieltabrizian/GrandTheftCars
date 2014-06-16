@@ -3,7 +3,9 @@ package me.lawhit.gtc.entities.Store;
 import java.util.HashMap;
 import java.util.Map;
 
+import me.lawhit.gtc.ChatType;
 import me.lawhit.gtc.Main;
+import me.lawhit.gtc.Message;
 import me.lawhit.gtc.MyConfig;
 import me.lawhit.gtc.MyConfigManager;
 import me.lawhit.gtc.entities.cops.Cops;
@@ -116,8 +118,10 @@ public class StoreListener implements Listener{
 					}
 				
 				}
-			}else if(vill.getCustomName().equals(ChatColor.RED + ""+ChatColor.BOLD + "Civilian!")){
+			}else if(vill.getCustomName() != null){
+				if(vill.getCustomName().equals(ChatColor.RED + ""+ChatColor.BOLD + "Civilian!")){
 				e.setCancelled(true);
+				}
 			}
 		}
 	}
@@ -151,13 +155,15 @@ public class StoreListener implements Listener{
 						Player p = (Player) e.getDamager();
 						
 						if(cooldown.containsKey(vill)){
-							p.sendMessage("I dont have any money!");
+							new Message(p,"I dont have any money!",ChatType.error);
+							
 							
 							
 						}else{
-							p.sendMessage("Owkay i will give you my money! just dont shoot!");
+							
+							new Message(p,"Owkay i will give you my money! just dont shoot!",ChatType.good);
 							eco.depositPlayer(p, 4000);
-							p.sendMessage("Here you go! i hope you die!");
+							new Message(p,"Here you go! i hope you die!",ChatType.error);
 							cooldown.put(vill, 1800);
 							new Cops(p,3);
 							
