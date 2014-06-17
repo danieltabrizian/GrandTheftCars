@@ -5,9 +5,10 @@ description: Drivecars
 author: lawhit
 commands:
     createcar:
-        description: sucksdick
+        description: Creates a car.
     createstore:
-        description: sucksdick
+        description: Creates a Store
     createphone:
-        description: sucksdick
-depend: [Vault,ProtocolLib,CrackShot,Aconomy]
+        description: Creates a phone.
+depend: [Vault,ProtocolLib,CrackShot]
+softdepend: [Aconomy]
